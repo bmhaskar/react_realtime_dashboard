@@ -1,14 +1,26 @@
 {
   "dependencies": {
+    "express": "^4.16.2",
     "next": "^4.1.2",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "ws": "^3.2.0"
   },
-
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/shim.js"
+    ]
+  },
   "scripts": {
-    "dev": "next",
+    "test": "jest",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "NODE_ENV=production node server.js"
+  },
+  "devDependencies": {
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.2",
+    "jest": "^21.2.1",
+    "react-test-renderer": "^16.0.0"
   }
-
 }
