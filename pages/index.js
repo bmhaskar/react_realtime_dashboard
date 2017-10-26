@@ -39,12 +39,15 @@ class App extends Component {
             <div>
                 <style dangerouslySetInnerHTML={{__html: stylesheet}}/>
                 <div >Page loaded</div>
-                <Timeseries messages={this.props.messages}
-                            eventName={"totalMessagesPerDay"}
-                            socket={this.state.socket}
-                            xFormat={'%Y-%m-%d %H:%M:%S'}
-                            format={ '%Y-%m-%d'} x={"time"} y={"count"}
-                />
+                <div>
+                    <p> Total battery low events per day</p>
+                    <Timeseries messages={this.props.messages}
+                                eventName={"totalMessagesPerDay"}
+                                socket={this.state.socket}
+                                xFormat={'%Y-%m-%d %H:%M:%S'}
+                                format={ '%Y-%m-%d'} x={"time"} y={"count"}
+                    />
+                </div>
 
                 {/*<Timeseries eventName={"averageEventsPerDay"} socket={this.state.socket} />*/}
 
