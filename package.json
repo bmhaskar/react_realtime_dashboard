@@ -1,5 +1,4 @@
 {
-
   "name": "react_realtime_dashboard",
   "description": "It is a realtime dashboard built with React. It uses C3.js for visualisation.",
   "license": "MIT",
@@ -26,7 +25,7 @@
     }
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest ",
     "test-coverage": "jest --coverage --coverageReporters=html --coverageDirectory=.coverage --collectCoverageFrom=**/*.{js,jsx}",
     "dev": "node server.js",
     "build": "next build",
