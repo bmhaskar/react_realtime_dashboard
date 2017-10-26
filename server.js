@@ -1,4 +1,6 @@
-const {calculateTotalMessagesPerDay} = require( "./lib/messageService");
+
+
+const {calculateTotalMessagesPerDay, calculateAverageNumberOfMessagesPerDay} = require("./lib/messageService");
 
 const app = require('express')()
 const bodyParser = require('body-parser')
@@ -12,7 +14,7 @@ const next = require('next')
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const nextApp = next({ dev })
+const nextApp = next({dev})
 const nextHandler = nextApp.getRequestHandler()
 
 // fake DB
@@ -29,54 +31,52 @@ const messages = []
 // })
 
 
-
-
-
-
 const messagesEventemitter = new EventEmitter();
 messagesEventemitter.on('messageReceived', (events) => {
 
 
     const messagesPerDayObj = calculateTotalMessagesPerDay(messages);
-    const messagesPerDay = Object.keys(messagesPerDayObj).map((messageTime) =>messagesPerDayObj[messageTime] );
+    const messagesPerDay = Object.keys(messagesPerDayObj).map((messageTime) => messagesPerDayObj[messageTime]);
 
-    console.log('messagesPerDay',messagesPerDay,  messagesPerDayObj);
+
     io.emit('totalMessagesPerDay', messagesPerDay);
+    io.emit('averageMessagesPerDay', calculateAverageNumberOfMessagesPerDay(messages));
+
 
 });
-
-
-
 
 
 //Total battery low events received per day
 //Average battery level received per day
 
-const   jsonParser = bodyParser.json()
+const jsonParser = bodyParser.json()
 nextApp.prepare().then(() => {
+    app.get('/events/averageMessagesPerDay', (req, res) => {
+        const averageNumberOfEventsPerDay = calculateAverageNumberOfMessagesPerDay(messages);
+        res.json({value: averageNumberOfEventsPerDay});
+    })
     app.get('/events/totalMessagesPerDay', (req, res) => {
-       if(messages.length) {
-           const messagesPerDayObj = calculateTotalMessagesPerDay(messages);
-           const messagesPerDay = Object.keys(messagesPerDayObj).map((messageTime) =>messagesPerDayObj[messageTime] );
-           res.send(messagesPerDay);
+        if (messages.length) {
+            const messagesPerDayObj = calculateTotalMessagesPerDay(messages);
+            const messagesPerDay = Object.keys(messagesPerDayObj).map((messageTime) => messagesPerDayObj[messageTime]);
+            res.send(messagesPerDay);
 
-       } else {
-           res.send(messages);
-       }
+        } else {
+            res.send(messages);
+        }
 
     })
 
 
-    app.post('/event', jsonParser,(req, res) => {
+    app.post('/event', jsonParser, (req, res) => {
         try {
             const {events} = req.body;
             if (events && Array.isArray(events)) {
                 events.forEach((event) => {
-                    if(!event.hasOwnProperty('time') ||  !event.hasOwnProperty('level') || !event.hasOwnProperty('uniqueDeviceId')) {
+                    if (!event.hasOwnProperty('time') || !event.hasOwnProperty('level') || !event.hasOwnProperty('uniqueDeviceId')) {
                         throw {code: 400, message: 'Event need to have "time" and "level" attributes'}
                     }
                     messages.push(event);
-
 
 
                 });
@@ -84,7 +84,7 @@ nextApp.prepare().then(() => {
             } else {
                 throw {code: 400, message: 'Please send request with events.'}
             }
-        } catch(e) {
+        } catch (e) {
             console.log(e);
 
             res.status(e.code || 500).send(e.message);
@@ -101,5 +101,6 @@ nextApp.prepare().then(() => {
     server.listen(port, (err) => {
         if (err) throw err
         console.log(`> Ready on http://localhost:${port}`)
+
     })
-})
+});
