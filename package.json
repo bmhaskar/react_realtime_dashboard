@@ -1,4 +1,10 @@
 {
+
+  "name": "Realtime dashboard",
+  "description": "It is a realtime dashboard built with React. It uses C3.js for visualisation.",
+  "licence": "MIT",
+  "author": "Bharat Mhaskar",
+  "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
