@@ -3,6 +3,9 @@ React SSR and realtime dashboard with socket.io.
 
 It is an example to demonstrate implementation for realtime dashboard building.
 
+### Demo 
+[Demo](https://reactrealtimedashboard-xxjtdcbakd.now.sh)
+ 
 #### Libraries 
 1. React - For frontend rendering
 2. Next.js - For server side rendering
