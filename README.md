@@ -43,6 +43,17 @@ It is an example to demonstrate implementation for realtime dashboard building.
 </code>
 
 
+#### How to send a request to update dashboard 
+<code>
+curl -X POST \
+  http://localhost:3000/event \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: 3f6511da-6659-7614-d3ac-b164d6324c49' \
+  -d '{"events": [{"uniqueDeviceId": "1", "time": "2017-10-02 13:10:02", "level": 15},
+  
+</code>
+
 
  
  
