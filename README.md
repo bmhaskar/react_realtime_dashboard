@@ -4,7 +4,7 @@ React SSR and realtime dashboard with socket.io.
 It is an example to demonstrate implementation for realtime dashboard building.
 
 ### Demo 
-[Demo](https://reactrealtimedashboard-xxjtdcbakd.now.sh)
+[Demo](https://reactrealtimedashboard-goqltamcsv.now.sh )
  
 #### Libraries 
 1. React - For frontend rendering
@@ -53,10 +53,7 @@ curl -X POST \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: d5c0c816-26c8-3866-ae49-7fbe394c743a' \
-  -d '{"events": [
-{"uniqueDeviceId": "1", "time": "2017-10-23 18:10:02", "level": 15}
-] }'
-  
+  -d '{"events": [{"uniqueDeviceId": "1", "time": "2017-10-23 18:10:02", "level": 15}] }'
 </code>
 
 
