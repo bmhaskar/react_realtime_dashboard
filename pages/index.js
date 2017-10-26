@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import fetch from 'isomorphic-fetch'
 import React, {Component} from "react";
 
-import 'c3/c3.css';
+
 import SocketConnector from "../components/SocketConnector";
 
 import Timeseries from "../components/Timeseries";

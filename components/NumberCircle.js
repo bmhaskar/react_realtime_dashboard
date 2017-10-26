@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import SocketConnector from "./SocketConnector";
+import stylesheet from './NumberCircle.scss'
+
 
 class NumberCircle extends Component {
 
@@ -17,7 +19,12 @@ class NumberCircle extends Component {
 
     render() {
 
-        return <div className={"numberCircle"}>{this.state.number}</div>
+        return (
+            <div>
+                <style dangerouslySetInnerHTML={{__html: stylesheet}}/>
+                <div className={"numberCircle"}>{this.state.number}</div>
+            </div>
+        )
     }
 
 }
