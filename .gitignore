@@ -60,4 +60,5 @@ typings/
 .env
 
 .idea/
-.next
+.next/
+.coverage/
