@@ -2,7 +2,7 @@
 
   "name": "react_realtime_dashboard",
   "description": "It is a realtime dashboard built with React. It uses C3.js for visualisation.",
-  "licence": "MIT",
+  "license": "MIT",
   "author": "Bharat Mhaskar",
   "version": "1.0.0",
   "dependencies": {
