@@ -1,7 +1,11 @@
 # react_realtime_dashboard
 React SSR and realtime dashboard with socket.io.
 
+[![Build Status](https://travis-ci.org/bmhaskar/react_realtime_dashboard.svg?branch=master)](https://travis-ci.org/bmhaskar/react_realtime_dashboard)
+[![codecov.io](https://codecov.io/gh/bmhaskar/react_realtime_dashboard/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/bmhaskar/react_realtime_dashboard)
+
 It is an example to demonstrate implementation for realtime dashboard building.
+
 
 ### Demo 
 [Demo](https://reactrealtimedashboard-goqltamcsv.now.sh )
