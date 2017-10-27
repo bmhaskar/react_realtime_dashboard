@@ -53,7 +53,7 @@ It is an example to demonstrate implementation for realtime dashboard building.
 #### How to send a request to update dashboard 
 <code>
 curl -X POST \
-  https://reactrealtimedashboard-xxjtdcbakd.now.sh/event \
+  https://reactrealtimedashboard-goqltamcsv.now.sh \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'postman-token: d5c0c816-26c8-3866-ae49-7fbe394c743a' \
