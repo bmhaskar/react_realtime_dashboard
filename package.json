@@ -22,7 +22,12 @@
     ],
     "moduleNameMapper": {
       "\\.(css|scss)$": "<rootDir>/node_modules/jest-css-modules"
-    }
+    },
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
+    "coverageReporters": ["html","lcov"],
+    "collectCoverageFrom": ["**/*.{js,jsx}"],
+    "forceExit": true
   },
   "scripts": {
     "test": "jest ",

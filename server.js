@@ -4,6 +4,7 @@ const {calculateTotalMessagesPerDay, calculateAverageNumberOfMessagesPerDay} = r
 
 const app = require('express')()
 const bodyParser = require('body-parser')
+const jsonParser = bodyParser.json()
 const EventEmitter = require('events');
 
 
@@ -46,10 +47,7 @@ messagesEventemitter.on('messageReceived', (events) => {
 });
 
 
-//Total battery low events received per day
-//Average battery level received per day
 
-const jsonParser = bodyParser.json()
 nextApp.prepare().then(() => {
     app.get('/events/averageMessagesPerDay', (req, res) => {
         const averageNumberOfEventsPerDay = calculateAverageNumberOfMessagesPerDay(messages);
