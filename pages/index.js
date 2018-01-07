@@ -9,13 +9,17 @@ import SocketConnector from "../components/SocketConnector";
 import Timeseries from "../components/Timeseries";
 import NumberCircle from "../components/NumberCircle";
 
+const getURL = (URL) => (path) => URL+'/'+path;
+const getAppURL = getURL(process.env.URL);
 
 class App extends Component {
 
     static async getInitialProps({req}) {
-        const response = await fetch('http://localhost:3000/events/totalMessagesPerDay')
+
+        const response = await fetch(getAppURL('events/totalMessagesPerDay'));
         const messages = await response.json();
-        let response1 = await fetch('http://localhost:3000/events/averageMessagesPerDay')
+        let response1 = await fetch(getAppURL('events/averageMessagesPerDay'));
+
          response1 = await response1.json();
 
         return {messages, "averageMessagesPerDay":response1.value  }
@@ -41,7 +45,6 @@ class App extends Component {
         return (
             <div>
                 <style dangerouslySetInnerHTML={{__html: stylesheet}}/>
-                <div >Page loaded</div>
                 <div>
                     <p> Total battery low events per day</p>
                     <Timeseries messages={this.props.messages}

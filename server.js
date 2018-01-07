@@ -1,27 +1,26 @@
-
-
 const {calculateTotalMessagesPerDay, calculateAverageNumberOfMessagesPerDay} = require("./lib/messageService");
 
 const app = require('express')()
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const EventEmitter = require('events');
-
-
-const server = require('http').Server(app)
-const io = require('socket.io')(server)
-// const ioClient  = require('socket.io-client')('http://localhost:3000');
 const next = require('next')
 
 const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV !== 'production';
+app.set('port',port);
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+
+// const ioClient  = require('socket.io-client')('http://localhost:3000');
 const nextApp = next({dev})
 const nextHandler = nextApp.getRequestHandler()
 
 // fake DB
 const messages = []
 
-// socket.io server
+
+// // socket.io server
 // io.on('connection', socket => {
 //     socket.on('message', (data) => {
 //         messages.push(data)
@@ -47,10 +46,9 @@ messagesEventemitter.on('messageReceived', (events) => {
 });
 
 
-
-nextApp.prepare().then(() => {
     app.get('/events/averageMessagesPerDay', (req, res) => {
-        const averageNumberOfEventsPerDay = calculateAverageNumberOfMessagesPerDay(messages);
+        const averageNumberOfEventsPerDay = calculateAverageNumberOfMessagesPerDay(
+            messages);
         res.json({value: averageNumberOfEventsPerDay});
     })
     app.get('/events/totalMessagesPerDay', (req, res) => {
@@ -65,17 +63,20 @@ nextApp.prepare().then(() => {
 
     })
 
-
     app.post('/event', jsonParser, (req, res) => {
         try {
             const {events} = req.body;
             if (events && Array.isArray(events)) {
                 events.forEach((event) => {
-                    if (!event.hasOwnProperty('time') || !event.hasOwnProperty('level') || !event.hasOwnProperty('uniqueDeviceId')) {
-                        throw {code: 400, message: 'Event need to have "time" and "level" attributes'}
+                    if (!event.hasOwnProperty('time') ||
+                        !event.hasOwnProperty('level') ||
+                        !event.hasOwnProperty('uniqueDeviceId')) {
+                        throw {
+                            code: 400,
+                            message: 'Event need to have "time" and "level" attributes'
+                        }
                     }
                     messages.push(event);
-
 
                 });
                 messagesEventemitter.emit('messageReceived', events);
@@ -89,16 +90,25 @@ nextApp.prepare().then(() => {
         }
         res.status(200).json({"message": "Successfully added events"})
 
-
     });
 
     app.get('*', (req, res) => {
         return nextHandler(req, res)
     })
 
-    server.listen(port, (err) => {
-        if (err) throw err
-        console.log(`> Ready on http://localhost:${port}`)
 
-    })
-});
+
+if (process.env.IN_LAMBDA) {
+    module.exports = app;
+} else {
+    process.env.URL = `http://localhost:${port}`;
+    nextApp.prepare().then(() => {
+
+
+        server.listen(port, (err) => {
+            if (err) throw err
+            console.log(`> Ready on http://localhost:${port}`)
+
+        })
+    });
+}

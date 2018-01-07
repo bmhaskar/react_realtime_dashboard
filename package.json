@@ -5,6 +5,7 @@
   "author": "Bharat Mhaskar",
   "version": "1.0.0",
   "dependencies": {
+    "aws-serverless-express": "^3.0.2",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "isomorphic-fetch": "^2.2.1",
@@ -25,8 +26,13 @@
     },
     "coverageDirectory": "./coverage/",
     "collectCoverage": true,
-    "coverageReporters": ["html","lcov"],
-    "collectCoverageFrom": ["**/*.{js,jsx}"],
+    "coverageReporters": [
+      "html",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}"
+    ],
     "forceExit": true
   },
   "scripts": {
@@ -52,6 +58,8 @@
     "postcss-loader": "^2.0.8",
     "raw-loader": "^0.5.1",
     "react-test-renderer": "^16.0.0",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "serverless-offline": "^3.16.0",
+    "serverless-webpack": "^4.1.0"
   }
 }
